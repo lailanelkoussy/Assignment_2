@@ -8,67 +8,81 @@
 #include <string>
 #include "Sim.h"
 
+class Sim;
+
 class Instruction {
-public:
-    Instruction(std::string &, Sim*);
-
-    virtual void execute()=0;
-
 private:
+
+public:
+    Instruction(std::string &, Sim *);
+    virtual void execute()=0;
+    void print();
+
+protected:
     std::string ins;
-    const Sim* simulation;
+    Sim* const simulation;
 
 };
 
 class Add : public Instruction {
 public:
-    Add(std::string in, Sim* );
+    Add(std::string in, Sim * );
+    void execute();
 
 };
 
 class Neg : public Instruction {
 public:
-    Neg(std::string in, Sim*);
+    Neg(std::string in, Sim *);
+    void execute();
 };
 
 class Mul : public Instruction {
 public:
-    Mul(std::string in, Sim*);
+    Mul(std::string in, Sim *);
+    void execute();
 };
 
 class Jmp : public Instruction {
 public:
-    Jmp(std::string in, Sim*);
+    Jmp(std::string in, Sim *);
+    void execute();
 };
 
 class Jmp0 : public Instruction {
 public:
-    Jmp0(std::string in, Sim*);
+    Jmp0(std::string in, Sim *);
+    void execute();
 };
 
 class Ass : public Instruction {
 public:
-    Ass(std::string in, Sim*);
+    Ass(std::string in, Sim *);
+    void execute();
 };
 
 class Le : public Instruction {
 public:
-    Le(std::string in, Sim*);
+    Le(std::string in, Sim *);
+    void execute();
 };
 
 class Read : public Instruction {
 public:
-    Read(std::string in, Sim*);
+    Read(std::string in, Sim *);
+    void execute();
 };
 
 class Write : public Instruction {
 public:
-    Write(std::string in, Sim*);
+    Write(std::string in, Sim *);
+    void execute();
 };
 
 class Halt : public Instruction {
 public:
-    Halt(std::string in, Sim*);
+    Halt(std::string in, Sim *);
+    void execute();
 };
 
 #endif //ASSIGNMENT_2_INSTRUCTION_H

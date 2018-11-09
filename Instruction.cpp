@@ -3,46 +3,128 @@
 //
 
 #include "Instruction.h"
+#include <iostream>
 
-Instruction::Instruction(std::string &a, Sim *b): ins(a), simulation(b) {
+using namespace std;
 
-}
-
-Add::Add(std::string in, Sim *a): Instruction(in,a) {
-
-}
-
-Neg::Neg(std::string in, Sim *a): Instruction(in,a) {
+Instruction::Instruction(std::string &a, Sim *b) : ins(a), simulation(b) {
 
 }
 
-Mul::Mul(std::string in, Sim *a): Instruction(in,a) {
+void Instruction::print() {
+    cout << ins << endl;
+}
+
+Add::Add(std::string in, Sim *a) : Instruction(in, a) {
 
 }
 
-Jmp::Jmp(std::string in, Sim *a): Instruction(in,a) {
-
-}
-Jmp0::Jmp0(std::string in, Sim *a): Instruction(in,a) {
+void Add::execute() {
 
 }
 
-Ass::Ass(std::string in, Sim *a): Instruction(in,a) {
+
+Neg::Neg(std::string in, Sim *a) : Instruction(in, a) {
 
 }
 
-Le::Le(std::string in, Sim *a): Instruction(in,a) {
-
-}
-Read::Read(std::string in, Sim *a): Instruction(in,a) {
+void Neg::execute() {
 
 }
 
-Write::Write(std::string in, Sim *a): Instruction(in,a) {
+Mul::Mul(std::string in, Sim *a) : Instruction(in, a) {
 
 }
 
-Halt::Halt(std::string in, Sim *a): Instruction(in,a) {
+void Mul::execute() {
+
+}
+
+Jmp::Jmp(std::string in, Sim *a) : Instruction(in, a) {
+
+}
+
+void Jmp::execute() {
+
+    string temp1;
+
+    if (ins.find('$') == -1)
+        throw MyException(4);
+    else {
+        temp1 = ins.substr(ins.find('$') + 1);
+        for (char element : temp1)
+            if (!isdigit(element))
+                throw MyException(4);
+
+        simulation->changePCto(atoi(temp1.c_str()));
+
+    }
+}
+
+Jmp0::Jmp0(std::string in, Sim *a) : Instruction(in, a) {
+
+}
+
+void Jmp0::execute() {
+
+}
+
+Ass::Ass(std::string in, Sim *a) : Instruction(in, a) {
+
+}
+
+void Ass::execute() {
+
+}
+
+Le::Le(std::string in, Sim *a) : Instruction(in, a) {
+
+}
+
+void Le::execute() {
+
+}
+
+Read::Read(std::string in, Sim *a) : Instruction(in, a) {
+
+}
+
+void Read::execute() {
+    string temp1;
+    int enter;
+
+
+    if (ins.find('#') == -1)
+        throw MyException(4);
+    else {
+
+        temp1 = ins.substr(ins.find('#') + 1);
+        for (char element : temp1)
+            if (!isdigit(element))
+                throw MyException(5);
+        cin >> enter;
+        simulation->saveInto(enter, atoi(temp1.c_str()));
+
+
+    }
+
+}
+
+
+Write::Write(std::string in, Sim *a) : Instruction(in, a) {
+
+}
+
+void Write::execute() {
+
+}
+
+Halt::Halt(std::string in, Sim *a) : Instruction(in, a) {
+
+}
+
+void Halt::execute() {
+    simulation->stop();
 
 }
 
